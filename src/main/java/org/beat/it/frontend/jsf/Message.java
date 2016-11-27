@@ -1,4 +1,4 @@
-package org.beat.it.jsf;
+package org.beat.it.frontend.jsf;
 
 import javax.enterprise.inject.Model;
 

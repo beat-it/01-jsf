@@ -1,5 +1,6 @@
-package org.beat.it.jsf;
+package org.beat.it.frontend.jsf;
 
+import org.beat.it.Main;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.wildfly.swarm.Swarm;
 import org.wildfly.swarm.arquillian.CreateSwarm;
+import org.wildfly.swarm.logging.LoggingFraction;
 import org.wildfly.swarm.undertow.WARArchive;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -37,8 +39,7 @@ public class SampleITTest  {
 
     @CreateSwarm
     public static Swarm newContainer() throws Exception {
-        Swarm swarm = new Swarm();
-        return swarm;
+        return new Swarm().fraction(LoggingFraction.createDebugLoggingFraction());
     }
 
     @Drone

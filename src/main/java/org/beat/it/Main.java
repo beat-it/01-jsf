@@ -1,5 +1,6 @@
-package org.beat.it.jsf;
+package org.beat.it;
 
+import org.beat.it.frontend.jsf.Message;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.wildfly.swarm.Swarm;
