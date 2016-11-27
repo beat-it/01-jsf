@@ -10,6 +10,6 @@ import java.io.Serializable;
  */
 @AllArgsConstructor
 @Getter
-public class Cart implements Serializable{
+public class Cart implements Serializable {
 
 }

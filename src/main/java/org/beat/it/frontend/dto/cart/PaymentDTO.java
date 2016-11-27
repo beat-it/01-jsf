@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
-public class PaymentDTO implements Serializable{
+public class PaymentDTO implements Serializable {
 
     private Double totalPrice;
     private Double itemsPrice;

@@ -38,6 +38,6 @@ public class CatalogService {
     }
 
     public List<Product> searchProducts(ProductSearchRequest productSearchRequest) {
-       return productRepository.search(productSearchRequest);
+        return productRepository.search(productSearchRequest);
     }
 }

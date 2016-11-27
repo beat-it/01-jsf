@@ -3,13 +3,10 @@ package org.beat.it.frontend.jsf;
 import lombok.extern.slf4j.Slf4j;
 import org.beat.it.Main;
 import org.beat.it.frontend.rest.JaxRsApplication;
-import org.beat.it.frontend.rest.cart.CartResource;
-import org.beat.it.frontend.rest.catalog.CatalogResource;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
@@ -21,8 +18,6 @@ import org.wildfly.swarm.arquillian.CreateSwarm;
 import org.wildfly.swarm.logging.LoggingFraction;
 import org.wildfly.swarm.undertow.WARArchive;
 
-import java.net.URL;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
@@ -30,14 +25,17 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
  */
 @Slf4j
 @RunWith(Arquillian.class)
-public class SampleITTest  {
+public class SampleITTest {
 
 //    @ArquillianResource
 //    URL deploymentUrl;
 
+    @Drone
+    WebDriver browser;
+
     @Deployment
     public static Archive deployment() throws Exception {
-         WARArchive deployment = ShrinkWrap.create(WARArchive.class);
+        WARArchive deployment = ShrinkWrap.create(WARArchive.class);
         deployment.addClass(Message.class);
         deployment.addPackages(true, "org.beat.it");
 
@@ -49,7 +47,8 @@ public class SampleITTest  {
          * Additionally, the JAXRSArchive can provide a default Application with the @ApplicationPath annotation if you do not provide one when creating the deployment. If you do provide an Application it will take precedence.
          If you are building a .war-based application, you must provide the Application implementation with the appropriate @ApplicationPath annotation.
          */
-        deployment.addClass(JaxRsApplication.class);;
+        deployment.addClass(JaxRsApplication.class);
+        ;
 
         deployment.addAsWebResource(
                 new ClassLoaderAsset("index.html", Main.class.getClassLoader()), "index.html");
@@ -69,9 +68,6 @@ public class SampleITTest  {
     public static Swarm newContainer() throws Exception {
         return new Swarm().fraction(LoggingFraction.createDebugLoggingFraction());
     }
-
-    @Drone
-    WebDriver browser;
 
     //http://stackoverflow.com/questions/25189281/classnotfoundexception-org-openqa-selenium-webdriver
     @RunAsClient

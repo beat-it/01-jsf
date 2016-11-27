@@ -12,7 +12,7 @@ import java.util.List;
 @ApplicationScoped
 public class DeliveryOptionRepository {
 
-    public List<DeliveryOption> listDeliveryOptions(){
+    public List<DeliveryOption> listDeliveryOptions() {
         return DeliveryOptions.all();
     }
 }

@@ -1,5 +1,6 @@
 package org.beat.it.frontend.rest.cart;
 
+import org.beat.it.backend.service.ShoppingService;
 import org.beat.it.frontend.dto.cart.AddItemDTO;
 import org.beat.it.frontend.dto.cart.CartDTO;
 import org.beat.it.frontend.dto.cart.CartInfoDTO;
@@ -7,8 +8,11 @@ import org.beat.it.frontend.dto.cart.CartOrderDTO;
 import org.beat.it.frontend.dto.cart.DeliveryOptionDTO;
 import org.beat.it.frontend.dto.cart.PaymentMethodDTO;
 import org.beat.it.frontend.rest.authentication.AuthenticationToken;
+import org.beat.it.frontend.transformer.cart.DeliveryOptionTransfomer;
+import org.beat.it.frontend.transformer.cart.PaymentMethodTransformer;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -30,6 +34,13 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CartResource {
 
+    @Inject
+    DeliveryOptionTransfomer deliveryOptionTransfomer;
+    @Inject
+    PaymentMethodTransformer paymentMethodTransformer;
+    @Inject
+    ShoppingService shoppingService;
+
     @AuthenticationToken
     @PUT
     public Response cart(CartOrderDTO cartOrderDTO) {
@@ -45,29 +56,35 @@ public class CartResource {
     @AuthenticationToken
     @GET
     @Path("/info")
-    public CartInfoDTO info(){return null;}
+    public CartInfoDTO info() {
+        return null;
+    }
 
     @AuthenticationToken
     @GET
     @Path("/delivery")
-    public List<DeliveryOptionDTO> delivery(){return null;}
+    public List<DeliveryOptionDTO> delivery() {
+        return deliveryOptionTransfomer.transform(shoppingService.listDeliveryOptions());
+    }
 
     @AuthenticationToken
     @GET
     @Path("/payment")
-    public List<PaymentMethodDTO> payment(){return null;}
+    public List<PaymentMethodDTO> payment() {
+        return paymentMethodTransformer.transform(shoppingService.listPaymentMethods());
+    }
 
     @AuthenticationToken
     @DELETE
     @Path("/items/{itemId}")
-    public CartInfoDTO items(@PathParam("itemId") String itemId){
+    public CartInfoDTO items(@PathParam("itemId") String itemId) {
         return null;
     }
 
     @AuthenticationToken
     @POST
     @Path("/items")
-    public CartInfoDTO items(AddItemDTO addItemDTO){
+    public CartInfoDTO items(AddItemDTO addItemDTO) {
         return null;
     }
 }

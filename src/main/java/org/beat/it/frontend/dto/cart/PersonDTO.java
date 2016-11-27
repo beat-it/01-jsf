@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
-public class PersonDTO implements Serializable{
+public class PersonDTO implements Serializable {
 
     private String forename;
     private String surname;

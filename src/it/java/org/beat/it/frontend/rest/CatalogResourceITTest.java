@@ -12,6 +12,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +36,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @RunWith(Arquillian.class)
 public class CatalogResourceITTest {
 
+    @Drone
+    WebDriver browser;
+
     @Deployment
     public static Archive deployment() throws Exception {
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
@@ -54,9 +58,6 @@ public class CatalogResourceITTest {
                 .fraction(new CDIFraction())
                 .fraction(new JSFFraction());
     }
-
-    @Drone
-    WebDriver browser;
 
     @RunAsClient
     @Test
@@ -122,6 +123,13 @@ public class CatalogResourceITTest {
         assertThat(token2).isNotNull();
 
         assertThat(token1).isEqualTo(token2);
+    }
 
+    //known issue to me
+    @Ignore("CatalogResourceITTest.testSwagger » NoClassDefFound Lorg/openqa/selenium/WebDr...")
+    @Test
+    public void testSwagger() {
+        browser.navigate().to("http://localhost:8080/swagger.json");
+        assertThat(browser.getPageSource()).contains("List all products for homepage");
     }
 }

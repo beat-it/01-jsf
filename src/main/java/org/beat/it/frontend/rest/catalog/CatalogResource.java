@@ -1,8 +1,10 @@
 package org.beat.it.frontend.rest.catalog;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.beat.it.backend.domain.ProductSearchRequest;
 import org.beat.it.backend.service.CatalogService;
-import org.beat.it.frontend.dto.catalog.ProductDTO;
+import org.beat.it.frontend.dto.catalog.ProductListDTO;
 import org.beat.it.frontend.rest.authentication.AuthenticationToken;
 import org.beat.it.frontend.transformer.catalog.ProductTransformer;
 
@@ -14,7 +16,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * @author Martin Petruna
@@ -23,6 +24,7 @@ import java.util.List;
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Api(value = "/catalog", description = "List or search in product catalog", tags = "catalog")
 public class CatalogResource {
 
     @Inject
@@ -34,14 +36,16 @@ public class CatalogResource {
     @AuthenticationToken
     @GET
     @Path("/homepage")
-    public List<ProductDTO> homepage() {
-        return productTransformer.transform(catalogService.listProducts());
+    @ApiOperation(value = "List all products for homepage", notes = "all products", response = ProductListDTO.class)
+    public ProductListDTO homepage() {
+        return new ProductListDTO(productTransformer.transform(catalogService.listProducts()));
     }
 
     @AuthenticationToken
     @GET
     @Path("/search/{name}")
-    public List<ProductDTO> search(@PathParam("name") String name) {
-        return productTransformer.transform(catalogService.searchProducts(new ProductSearchRequest(name)));
+    @ApiOperation(value = "List all products using name param to do prefix query", notes = "for autocomplete feature", response = ProductListDTO.class)
+    public ProductListDTO search(@PathParam("name") String name) {
+        return new ProductListDTO(productTransformer.transform(catalogService.searchProducts(new ProductSearchRequest(name))));
     }
 }

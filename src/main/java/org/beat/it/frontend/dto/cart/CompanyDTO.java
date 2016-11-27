@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
-public class CompanyDTO implements Serializable{
+public class CompanyDTO implements Serializable {
 
     private String name;
     private String dic;

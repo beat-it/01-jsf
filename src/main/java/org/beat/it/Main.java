@@ -14,6 +14,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        //TODO adjust according to tests
+
         Swarm swarm = new Swarm();
 
         WARArchive deployment = ShrinkWrap.create(WARArchive.class);

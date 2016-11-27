@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * reused from examples https://github.com/wildfly-swarm/wildfly-swarm-examples/blob/master/jaxrs/swagger/src/main/java/org/wildfly/swarm/examples/jaxrs/swagger/CORSFilter.java
+ *
  * @author Yoshimasa Tanabe
  */
 @Provider

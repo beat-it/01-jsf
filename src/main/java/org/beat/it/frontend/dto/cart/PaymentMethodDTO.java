@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
-public class PaymentMethodDTO implements Serializable{
+public class PaymentMethodDTO implements Serializable {
 
     private String id;
     private Double price;
