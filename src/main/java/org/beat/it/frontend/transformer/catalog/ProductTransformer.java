@@ -9,6 +9,9 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Martin Petruna
+ */
 @ApplicationScoped
 public class ProductTransformer {
 

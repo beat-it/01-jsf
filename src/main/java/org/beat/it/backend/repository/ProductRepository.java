@@ -8,6 +8,9 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Martin Petruna
+ */
 @ApplicationScoped
 public class ProductRepository {
 

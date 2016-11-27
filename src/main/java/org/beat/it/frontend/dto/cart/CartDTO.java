@@ -6,6 +6,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author Martin Petruna
+ */
 @Data
 @AllArgsConstructor
 public class CartDTO implements Serializable {

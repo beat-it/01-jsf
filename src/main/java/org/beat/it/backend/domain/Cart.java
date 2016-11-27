@@ -5,6 +5,9 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+/**
+ * @author Martin Petruna
+ */
 @AllArgsConstructor
 @Getter
 public class Cart implements Serializable{

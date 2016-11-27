@@ -6,6 +6,9 @@ import org.beat.it.backend.domain.Product;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Martin Petruna
+ */
 public class Products {
 
     private static final List<Product> PRODUCTS = new ArrayList<>();

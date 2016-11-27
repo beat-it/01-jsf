@@ -6,6 +6,9 @@ import org.beat.it.frontend.dto.ImageDTO;
 
 import java.io.Serializable;
 
+/**
+ * @author Martin Petruna
+ */
 @Data
 @AllArgsConstructor
 public class CartItemDTO implements Serializable {

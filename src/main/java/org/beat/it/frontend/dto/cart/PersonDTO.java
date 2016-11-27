@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author Martin Petruna
+ */
 @Data
 @AllArgsConstructor
 public class PersonDTO implements Serializable{

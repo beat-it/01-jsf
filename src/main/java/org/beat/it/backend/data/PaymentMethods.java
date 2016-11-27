@@ -5,6 +5,9 @@ import org.beat.it.backend.domain.PaymentMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Martin Petruna
+ */
 public class PaymentMethods {
 
     private static final List<PaymentMethod> PAYMENT_METHODS = new ArrayList<>();

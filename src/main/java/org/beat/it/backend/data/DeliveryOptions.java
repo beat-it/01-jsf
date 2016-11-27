@@ -5,6 +5,9 @@ import org.beat.it.backend.domain.DeliveryOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Martin Petruna
+ */
 public class DeliveryOptions {
 
     private static final List<DeliveryOption> DELIVERY_OPTIONS = new ArrayList<>();

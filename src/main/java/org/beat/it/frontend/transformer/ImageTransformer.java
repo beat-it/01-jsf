@@ -5,6 +5,9 @@ import org.beat.it.frontend.dto.ImageDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 
+/**
+ * @author Martin Petruna
+ */
 @ApplicationScoped
 public class ImageTransformer {
 
