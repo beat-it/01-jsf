@@ -25,6 +25,9 @@ import java.net.URL;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+/**
+ * @author Martin Petruna
+ */
 @Slf4j
 @RunWith(Arquillian.class)
 public class SampleITTest  {
