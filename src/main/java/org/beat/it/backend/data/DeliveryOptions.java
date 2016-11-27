@@ -13,8 +13,8 @@ public class DeliveryOptions {
     private static final List<DeliveryOption> DELIVERY_OPTIONS = new ArrayList<>();
 
     static {
-        DELIVERY_OPTIONS.add(new DeliveryOption("KURIER", 2.5d, "EUR"));
-        DELIVERY_OPTIONS.add(new DeliveryOption("OSOBNY_ODBER", 0d, "EUR"));
+        DELIVERY_OPTIONS.add(new DeliveryOption("KURIER", 2.5d));
+        DELIVERY_OPTIONS.add(new DeliveryOption("OSOBNY_ODBER", 0d));
     }
 
     public static List<DeliveryOption> all() {

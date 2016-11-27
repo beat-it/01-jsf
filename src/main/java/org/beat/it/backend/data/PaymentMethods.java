@@ -13,8 +13,8 @@ public class PaymentMethods {
     private static final List<PaymentMethod> PAYMENT_METHODS = new ArrayList<>();
 
     static {
-        PAYMENT_METHODS.add(new PaymentMethod("CARD_ONLINE", 0d, "EUR"));
-        PAYMENT_METHODS.add(new PaymentMethod("DOBIERKA", 1.5d, "EUR"));
+        PAYMENT_METHODS.add(new PaymentMethod("CARD_ONLINE", 0d));
+        PAYMENT_METHODS.add(new PaymentMethod("DOBIERKA", 1.5d));
     }
 
     public static List<PaymentMethod> all() {

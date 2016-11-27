@@ -1,6 +1,7 @@
 package org.beat.it.frontend.rest.cart;
 
-import org.beat.it.backend.service.ShoppingService;
+import org.beat.it.backend.service.CartService;
+import org.beat.it.backend.service.CatalogService;
 import org.beat.it.frontend.dto.cart.AddItemDTO;
 import org.beat.it.frontend.dto.cart.CartDTO;
 import org.beat.it.frontend.dto.cart.CartInfoDTO;
@@ -8,8 +9,12 @@ import org.beat.it.frontend.dto.cart.CartOrderDTO;
 import org.beat.it.frontend.dto.cart.DeliveryOptionDTO;
 import org.beat.it.frontend.dto.cart.PaymentMethodDTO;
 import org.beat.it.frontend.rest.authentication.AuthenticationToken;
+import org.beat.it.frontend.transformer.cart.BillingDetailsTransformer;
+import org.beat.it.frontend.transformer.cart.CartInfoTransformer;
+import org.beat.it.frontend.transformer.cart.CartTransformer;
 import org.beat.it.frontend.transformer.cart.DeliveryOptionTransfomer;
 import org.beat.it.frontend.transformer.cart.PaymentMethodTransformer;
+import org.beat.it.frontend.transformer.cart.PersonTransformer;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -39,52 +44,68 @@ public class CartResource {
     @Inject
     PaymentMethodTransformer paymentMethodTransformer;
     @Inject
-    ShoppingService shoppingService;
+    PersonTransformer personTransformer;
+    @Inject
+    BillingDetailsTransformer billingDetailsTransformer;
+    @Inject
+    CartTransformer cartTransformer;
+    @Inject
+    CartInfoTransformer cartInfoTransformer;
+    @Inject
+    CartService cartService;
+    @Inject
+    CatalogService catalogService;
 
     @AuthenticationToken
     @PUT
     public Response cart(CartOrderDTO cartOrderDTO) {
-        return null;
+        cartService.processOrder(cartOrderDTO.getDeliveryType(),
+                cartOrderDTO.getPaymentMethod(),
+                personTransformer.transform(cartOrderDTO.getPerson()),
+                billingDetailsTransformer.transform(cartOrderDTO.getBillingAddress()));
+        return Response.ok().build();
     }
 
     @AuthenticationToken
     @GET
     public CartDTO cart() {
-        return null;
+        return cartTransformer.transform(cartService.getCart(), catalogService.listProductsPerProductId());
     }
 
     @AuthenticationToken
     @GET
     @Path("/info")
     public CartInfoDTO info() {
-        return null;
+        return cartInfoTransformer.transform(cartService.getCart());
     }
 
     @AuthenticationToken
     @GET
     @Path("/delivery")
     public List<DeliveryOptionDTO> delivery() {
-        return deliveryOptionTransfomer.transform(shoppingService.listDeliveryOptions());
+        return deliveryOptionTransfomer.transform(cartService.listDeliveryOptions());
     }
 
     @AuthenticationToken
     @GET
     @Path("/payment")
     public List<PaymentMethodDTO> payment() {
-        return paymentMethodTransformer.transform(shoppingService.listPaymentMethods());
+        return paymentMethodTransformer.transform(cartService.listPaymentMethods());
     }
 
     @AuthenticationToken
     @DELETE
     @Path("/items/{itemId}")
     public CartInfoDTO items(@PathParam("itemId") String itemId) {
-        return null;
+        cartService.removeItemFromCart(itemId);
+        return cartInfoTransformer.transform(cartService.getCart());
     }
 
     @AuthenticationToken
     @POST
     @Path("/items")
     public CartInfoDTO items(AddItemDTO addItemDTO) {
-        return null;
+        cartService.addItemToCart(addItemDTO.getProductId(), addItemDTO.getQuantity());
+        return cartInfoTransformer.transform(cartService.getCart());
     }
 }

@@ -14,5 +14,5 @@ public class PaymentMethodDTO implements Serializable {
 
     private String id;
     private Double price;
-    private String currency;
+    private String currency = "EUR";
 }

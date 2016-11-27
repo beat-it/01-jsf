@@ -23,7 +23,7 @@ public class ProductTransformer {
     }
 
     public ProductDTO transform(Product product) {
-        return new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getCurrency(),
+        return new ProductDTO(product.getId(), product.getName(), product.getPrice(), "EUR",
                 product.getDescription(), product.getRating(), imageTransformer.transform(product.getImage()));
     }
 }

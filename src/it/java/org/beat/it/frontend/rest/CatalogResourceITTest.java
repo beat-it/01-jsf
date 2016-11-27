@@ -3,15 +3,11 @@ package org.beat.it.frontend.rest;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.beat.it.Main;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +15,6 @@ import org.openqa.selenium.WebDriver;
 import org.wildfly.swarm.Swarm;
 import org.wildfly.swarm.arquillian.CreateSwarm;
 import org.wildfly.swarm.cdi.CDIFraction;
-import org.wildfly.swarm.jaxrs.JAXRSArchive;
 import org.wildfly.swarm.jaxrs.JAXRSFraction;
 import org.wildfly.swarm.jsf.JSFFraction;
 import org.wildfly.swarm.logging.LoggingFraction;
@@ -41,13 +36,7 @@ public class CatalogResourceITTest {
 
     @Deployment
     public static Archive deployment() throws Exception {
-        JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
-        deployment.addPackages(true, "org.beat.it");
-        deployment.addAsWebInfResource(
-                new ClassLoaderAsset("WEB-INF/web.xml", Main.class.getClassLoader()), "web.xml");
-        deployment.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-        deployment.addAllDependencies();
-        return deployment;
+        return JaxRsDeployment.deployment();
     }
 
     @CreateSwarm

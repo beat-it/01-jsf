@@ -14,5 +14,5 @@ public class CartInfoDTO implements Serializable {
 
     private Integer count;
     private Double totalPrice;
-    private String currency;
+    private String currency = "EUR";
 }

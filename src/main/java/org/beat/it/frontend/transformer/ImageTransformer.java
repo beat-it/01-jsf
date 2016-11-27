@@ -14,4 +14,5 @@ public class ImageTransformer {
     public ImageDTO transform(Image image) {
         return new ImageDTO(image.getUrl(), image.getThumbnailUrl(), image.getCatalogUrl());
     }
+
 }

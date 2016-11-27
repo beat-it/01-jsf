@@ -12,5 +12,4 @@ public class PaymentMethod {
 
     private String id;
     private Double price;
-    private String currency;
 }

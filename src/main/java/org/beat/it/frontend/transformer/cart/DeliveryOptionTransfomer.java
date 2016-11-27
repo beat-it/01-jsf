@@ -18,6 +18,6 @@ public class DeliveryOptionTransfomer {
     }
 
     public DeliveryOptionDTO transform(DeliveryOption deliveryOption) {
-        return new DeliveryOptionDTO(deliveryOption.getId(), deliveryOption.getPrice(), deliveryOption.getCurrency());
+        return new DeliveryOptionDTO(deliveryOption.getId(), deliveryOption.getPrice(), "EUR");
     }
 }

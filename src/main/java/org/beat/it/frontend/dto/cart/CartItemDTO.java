@@ -17,6 +17,6 @@ public class CartItemDTO implements Serializable {
     private ImageDTO image;
     private Integer quantity;
     private Double pricePerItem;
-    private String currency;
+    private String currency = "EUR";
     private Double totalPrice;
 }
