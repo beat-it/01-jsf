@@ -1,0 +1,594 @@
+2016-11-28 19:48:54,166 INFO  [org.wildfly.swarm] (main) WFSWARM99999: WildFly Swarm is Ready
+Request method:	GET
+Request path:	http://localhost:8080/service/catalog/homepage
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 655
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "products": [
+        {
+            "productId": "1",
+            "name": "Volvo V40",
+            "price": 45435.0,
+            "currency": "EUR",
+            "description": "Nice car to ride in Sweden.",
+            "rating": 3.14,
+            "image": {
+                "url": "url1",
+                "thumbnailUrl": "thumbnailUrl1",
+                "catalogUrl": "catalogUrl1"
+            }
+        },
+        {
+            "productId": "2",
+            "name": "Honda CR-V",
+            "price": 35435.0,
+            "currency": "EUR",
+            "description": "Nice car to ride on road.",
+            "rating": 3.15,
+            "image": {
+                "url": "url2",
+                "thumbnailUrl": "thumbnailUrl2",
+                "catalogUrl": "catalogUrl2"
+            }
+        },
+        {
+            "productId": "3",
+            "name": "Mitsubishi Outlander",
+            "price": 25435.0,
+            "currency": "EUR",
+            "description": "Nice car to ride on dirty road.",
+            "rating": 3.16,
+            "image": {
+                "url": "url3",
+                "thumbnailUrl": "thumbnailUrl2",
+                "catalogUrl": "catalogUrl3"
+            }
+        }
+    ]
+}
+Request method:	GET
+Request path:	http://localhost:8080/service/catalog/search/V
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 223
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "products": [
+        {
+            "productId": "1",
+            "name": "Volvo V40",
+            "price": 45435.0,
+            "currency": "EUR",
+            "description": "Nice car to ride in Sweden.",
+            "rating": 3.14,
+            "image": {
+                "url": "url1",
+                "thumbnailUrl": "thumbnailUrl1",
+                "catalogUrl": "catalogUrl1"
+            }
+        }
+    ]
+}
+Request method:	POST
+Request path:	http://localhost:8080/service/cart/items
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=application/json, application/javascript, text/javascript
+				Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "quantity": 1,
+    "productId": "1"
+}
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 49
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "count": 1,
+    "totalPrice": 45435.0,
+    "currency": "EUR"
+}
+Request method:	GET
+Request path:	http://localhost:8080/service/catalog/search/H
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 222
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "products": [
+        {
+            "productId": "2",
+            "name": "Honda CR-V",
+            "price": 35435.0,
+            "currency": "EUR",
+            "description": "Nice car to ride on road.",
+            "rating": 3.15,
+            "image": {
+                "url": "url2",
+                "thumbnailUrl": "thumbnailUrl2",
+                "catalogUrl": "catalogUrl2"
+            }
+        }
+    ]
+}
+Request method:	POST
+Request path:	http://localhost:8080/service/cart/items
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=application/json, application/javascript, text/javascript
+				Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "quantity": 1,
+    "productId": "2"
+}
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 49
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "count": 2,
+    "totalPrice": 80870.0,
+    "currency": "EUR"
+}
+Request method:	POST
+Request path:	http://localhost:8080/service/cart/items
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=application/json, application/javascript, text/javascript
+				Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "quantity": 2,
+    "productId": "1"
+}
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 50
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "count": 4,
+    "totalPrice": 171740.0,
+    "currency": "EUR"
+}
+Request method:	GET
+Request path:	http://localhost:8080/service/catalog/search/M
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 238
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "products": [
+        {
+            "productId": "3",
+            "name": "Mitsubishi Outlander",
+            "price": 25435.0,
+            "currency": "EUR",
+            "description": "Nice car to ride on dirty road.",
+            "rating": 3.16,
+            "image": {
+                "url": "url3",
+                "thumbnailUrl": "thumbnailUrl2",
+                "catalogUrl": "catalogUrl3"
+            }
+        }
+    ]
+}
+Request method:	POST
+Request path:	http://localhost:8080/service/cart/items
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=application/json, application/javascript, text/javascript
+				Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "quantity": 1,
+    "productId": "3"
+}
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 50
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "count": 5,
+    "totalPrice": 197175.0,
+    "currency": "EUR"
+}
+Request method:	DELETE
+Request path:	http://localhost:8080/service/cart/items/2
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 50
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "count": 4,
+    "totalPrice": 161740.0,
+    "currency": "EUR"
+}
+Request method:	GET
+Request path:	http://localhost:8080/service/cart/payment
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 98
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+[
+    {
+        "id": "CARD_ONLINE",
+        "price": 0.0,
+        "currency": "EUR"
+    },
+    {
+        "id": "DOBIERKA",
+        "price": 1.5,
+        "currency": "EUR"
+    }
+]
+Request method:	GET
+Request path:	http://localhost:8080/service/cart/delivery
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 97
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+[
+    {
+        "id": "KURIER",
+        "price": 2.5,
+        "currency": "EUR"
+    },
+    {
+        "id": "OSOBNY_ODBER",
+        "price": 0.0,
+        "currency": "EUR"
+    }
+]
+Request method:	PUT
+Request path:	http://localhost:8080/service/cart
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=application/json, application/javascript, text/javascript
+				Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "deliveryType": "KURIER",
+    "paymentMethod": "DOBIERKA",
+    "person": {
+        "forename": "Martin",
+        "surname": "Petruna",
+        "email": "dabrockij@gmail.com",
+        "phone": "0907471133"
+    },
+    "billingAddress": {
+        "billingAddress": {
+            "street": "Moldavska 10",
+            "city": "Kosice",
+            "zip": "04011",
+            "country": "Slovakia"
+        },
+        "company": {
+            "name": "Prodium s.r.o.",
+            "dic": "123",
+            "ico": "456",
+            "icDph": "789"
+        }
+    },
+    "address": {
+        "street": "Moldavska 10",
+        "city": "Kosice",
+        "zip": "04011",
+        "country": "Slovakia"
+    }
+}
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 899
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "cartItems": [
+        {
+            "name": "Volvo V40",
+            "image": {
+                "url": "url1",
+                "thumbnailUrl": "thumbnailUrl1",
+                "catalogUrl": "catalogUrl1"
+            },
+            "quantity": 3,
+            "pricePerItem": 45435.0,
+            "currency": "EUR",
+            "totalPrice": 136305.0
+        },
+        {
+            "name": "Mitsubishi Outlander",
+            "image": {
+                "url": "url3",
+                "thumbnailUrl": "thumbnailUrl2",
+                "catalogUrl": "catalogUrl3"
+            },
+            "quantity": 1,
+            "pricePerItem": 25435.0,
+            "currency": "EUR",
+            "totalPrice": 25435.0
+        }
+    ],
+    "payment": {
+        "totalPrice": 161744.0,
+        "itemsPrice": 161740.0,
+        "deliveryPrice": 2.5,
+        "currency": "EUR",
+        "deliveryType": "KURIER",
+        "paymentMethod": "DOBIERKA"
+    },
+    "person": {
+        "forename": "Martin",
+        "surname": "Petruna",
+        "email": "dabrockij@gmail.com",
+        "phone": "0907471133"
+    },
+    "billingDetails": {
+        "billingAddress": {
+            "street": "Moldavska 10",
+            "city": "Kosice",
+            "zip": "04011",
+            "country": "Slovakia"
+        },
+        "company": {
+            "name": "Prodium s.r.o.",
+            "dic": "123",
+            "ico": "456",
+            "icDph": "789"
+        }
+    },
+    "address": {
+        "street": "Moldavska 10",
+        "city": "Kosice",
+        "zip": "04011",
+        "country": "Slovakia"
+    }
+}
+Request method:	GET
+Request path:	http://localhost:8080/service/cart/info
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Accept=*/*
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 45
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "count": 0,
+    "totalPrice": 0.0,
+    "currency": "EUR"
+}
+Request method:	GET
+Request path:	http://localhost:8080/service/cart
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=application/json, application/javascript, text/javascript
+				Authorization=Bearer tlmioavhpbinaa7qn1c1ndqtoq
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:			<none>
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
+Date: Mon, 28 Nov 2016 18:48:54 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Authorization: Bearer tlmioavhpbinaa7qn1c1ndqtoq
+Content-Type: application/json
+Content-Length: 82
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: -1
+
+{
+    "cartItems": [
+
+    ],
+    "payment": null,
+    "person": null,
+    "billingDetails": null,
+    "address": null
+}
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.019 sec - in org.beat.it.frontend.rest.EndToEndShoppingITTest
