@@ -12,6 +12,8 @@ import javax.enterprise.context.ApplicationScoped;
 public class PaymentTransformer {
 
     public PaymentDTO transform(Payment payment) {
-        return new PaymentDTO(payment.getTotalPrice(), payment.getItemsPrice(), payment.getDeliveryPrice(), "EUR", payment.getDeliveryType(), payment.getPaymentMethod());
+        if (payment != null) {
+            return new PaymentDTO(payment.getTotalPrice(), payment.getItemsPrice(), payment.getDeliveryPrice(), "EUR", payment.getDeliveryType(), payment.getPaymentMethod());
+        } else return null;
     }
 }

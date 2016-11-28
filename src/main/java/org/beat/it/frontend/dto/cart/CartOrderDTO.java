@@ -16,4 +16,5 @@ public class CartOrderDTO implements Serializable {
     private String paymentMethod;
     private PersonDTO person;
     private BillingDetailsDTO billingAddress;
+    private AddressDTO address;
 }

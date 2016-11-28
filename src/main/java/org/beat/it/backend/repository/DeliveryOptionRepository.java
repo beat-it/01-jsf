@@ -5,6 +5,7 @@ import org.beat.it.backend.domain.DeliveryOption;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Martin Petruna
@@ -14,5 +15,10 @@ public class DeliveryOptionRepository {
 
     public List<DeliveryOption> listDeliveryOptions() {
         return DeliveryOptions.all();
+    }
+
+    public DeliveryOption deliveryOption(String id) {
+        Optional<DeliveryOption> first = DeliveryOptions.all().stream().filter(deliveryOption -> deliveryOption.getId().equals(id)).findFirst();
+        return first.isPresent() ? first.get() : null;
     }
 }

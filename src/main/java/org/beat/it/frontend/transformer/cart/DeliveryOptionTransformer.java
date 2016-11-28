@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @author Martin Petruna
  */
 @ApplicationScoped
-public class DeliveryOptionTransfomer {
+public class DeliveryOptionTransformer {
 
     public List<DeliveryOptionDTO> transform(List<DeliveryOption> deliveryOptions) {
         return deliveryOptions.stream().map(this::transform).collect(Collectors.toList());

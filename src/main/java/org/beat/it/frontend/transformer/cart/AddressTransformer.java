@@ -16,6 +16,10 @@ public class AddressTransformer {
     }
 
     public AddressDTO transform(Address address) {
-        return new AddressDTO(address.getStreet(), address.getCity(), address.getZip(), address.getCountry());
+        if (address != null) {
+            return new AddressDTO(address.getStreet(), address.getCity(), address.getZip(), address.getCountry());
+        } else {
+            return null;
+        }
     }
 }

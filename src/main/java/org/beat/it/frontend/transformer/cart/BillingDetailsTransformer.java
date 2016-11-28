@@ -23,7 +23,11 @@ public class BillingDetailsTransformer {
     }
 
     public BillingDetailsDTO transform(BillingDetails billingDetails) {
-        return new BillingDetailsDTO(addressTransformer.transform(billingDetails.getBillingAddress())
-                , companyTransformer.transform(billingDetails.getCompany()));
+        if (billingDetails != null) {
+            return new BillingDetailsDTO(addressTransformer.transform(billingDetails.getBillingAddress())
+                    , companyTransformer.transform(billingDetails.getCompany()));
+        } else {
+            return null;
+        }
     }
 }

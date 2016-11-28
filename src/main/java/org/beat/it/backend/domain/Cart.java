@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Cart implements Serializable {
 
     private List<CartItem> cartItems = new ArrayList<>();
@@ -24,11 +26,11 @@ public class Cart implements Serializable {
     private BillingDetails billingDetails;
     private Address address;
 
-    public Double getTotalPrice() {
+    public Double getItemsPrice() {
         return cartItems.stream().mapToDouble(CartItem::totalPrice).sum();
     }
 
-    public Double getItemsPrice() {
-        return payment != null ? getTotalPrice() - payment.getDeliveryPrice() : getTotalPrice();
+    public Double getTotalPrice() {
+        return payment != null ? payment.getTotalPrice() : getItemsPrice();
     }
 }

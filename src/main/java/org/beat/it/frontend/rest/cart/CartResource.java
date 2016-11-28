@@ -1,5 +1,6 @@
 package org.beat.it.frontend.rest.cart;
 
+import org.beat.it.backend.domain.Cart;
 import org.beat.it.backend.service.CartService;
 import org.beat.it.backend.service.CatalogService;
 import org.beat.it.frontend.dto.cart.AddItemDTO;
@@ -9,10 +10,11 @@ import org.beat.it.frontend.dto.cart.CartOrderDTO;
 import org.beat.it.frontend.dto.cart.DeliveryOptionDTO;
 import org.beat.it.frontend.dto.cart.PaymentMethodDTO;
 import org.beat.it.frontend.rest.authentication.AuthenticationToken;
+import org.beat.it.frontend.transformer.cart.AddressTransformer;
 import org.beat.it.frontend.transformer.cart.BillingDetailsTransformer;
 import org.beat.it.frontend.transformer.cart.CartInfoTransformer;
 import org.beat.it.frontend.transformer.cart.CartTransformer;
-import org.beat.it.frontend.transformer.cart.DeliveryOptionTransfomer;
+import org.beat.it.frontend.transformer.cart.DeliveryOptionTransformer;
 import org.beat.it.frontend.transformer.cart.PaymentMethodTransformer;
 import org.beat.it.frontend.transformer.cart.PersonTransformer;
 
@@ -40,7 +42,7 @@ import java.util.List;
 public class CartResource {
 
     @Inject
-    DeliveryOptionTransfomer deliveryOptionTransfomer;
+    DeliveryOptionTransformer deliveryOptionTransformer;
     @Inject
     PaymentMethodTransformer paymentMethodTransformer;
     @Inject
@@ -52,18 +54,21 @@ public class CartResource {
     @Inject
     CartInfoTransformer cartInfoTransformer;
     @Inject
+    AddressTransformer addressTransformer;
+    @Inject
     CartService cartService;
     @Inject
     CatalogService catalogService;
 
     @AuthenticationToken
     @PUT
-    public Response cart(CartOrderDTO cartOrderDTO) {
-        cartService.processOrder(cartOrderDTO.getDeliveryType(),
+    public CartDTO cart(CartOrderDTO cartOrderDTO) {
+        Cart cart = cartService.processOrder(cartOrderDTO.getDeliveryType(),
                 cartOrderDTO.getPaymentMethod(),
                 personTransformer.transform(cartOrderDTO.getPerson()),
-                billingDetailsTransformer.transform(cartOrderDTO.getBillingAddress()));
-        return Response.ok().build();
+                billingDetailsTransformer.transform(cartOrderDTO.getBillingAddress()),
+                addressTransformer.transform(cartOrderDTO.getAddress()));
+        return cartTransformer.transform(cart, catalogService.listProductsPerProductId());
     }
 
     @AuthenticationToken
@@ -83,7 +88,7 @@ public class CartResource {
     @GET
     @Path("/delivery")
     public List<DeliveryOptionDTO> delivery() {
-        return deliveryOptionTransfomer.transform(cartService.listDeliveryOptions());
+        return deliveryOptionTransformer.transform(cartService.listDeliveryOptions());
     }
 
     @AuthenticationToken

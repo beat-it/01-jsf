@@ -16,6 +16,8 @@ public class PersonTransformer {
     }
 
     public PersonDTO transform(Person person) {
-        return new PersonDTO(person.getForename(), person.getSurname(), person.getEmail(), person.getPhone());
+        if (person != null) {
+            return new PersonDTO(person.getForename(), person.getSurname(), person.getEmail(), person.getPhone());
+        } else return null;
     }
 }
