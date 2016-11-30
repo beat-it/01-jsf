@@ -242,5 +242,7 @@ public class EndToEndShoppingITTest {
 
         //TODO
 
+        //TODO 2 test multiple parallel shoppings
+
     }
 }

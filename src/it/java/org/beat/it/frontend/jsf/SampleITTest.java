@@ -53,7 +53,7 @@ public class SampleITTest {
         deployment.addAsWebResource(
                 new ClassLoaderAsset("index.html", Main.class.getClassLoader()), "index.html");
         deployment.addAsWebResource(
-                new ClassLoaderAsset("index.xhtml", Main.class.getClassLoader()), "index.xhtml");
+                new ClassLoaderAsset("homepage.xhtml", Main.class.getClassLoader()), "homepage.xhtml");
         deployment.addAsWebInfResource(
                 new ClassLoaderAsset("WEB-INF/web.xml", Main.class.getClassLoader()), "web.xml");
         deployment.addAsWebInfResource(
@@ -75,7 +75,7 @@ public class SampleITTest {
     public void testIt() {
         //log.info("deployment url "+deploymentUrl);
 
-        browser.navigate().to("http://localhost:8080/index.xhtml");
+        browser.navigate().to("http://localhost:8080/homepage.xhtml");
         assertThat(browser.getPageSource()).contains("WildFly Swarm Facelet");
         assertThat(browser.getPageSource()).contains("Hello from BeatIT");
         assertThat(browser.getPageSource()).contains("Powered by WildFly Swarm");
