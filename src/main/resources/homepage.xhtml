@@ -9,7 +9,8 @@
 <body>
 <ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="content">
-        <p:dataGrid var="item" value="#{homePageBean.products}" columns="3" layout="grid" rows="3" paginator="true" id="products" rowsPerPageTemplate="3,6,9"
+        <p:dataGrid var="item" value="#{homePageBean.products}" columns="3" layout="grid" rows="3" paginator="true"
+                    id="products" rowsPerPageTemplate="3,6,9"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
             <f:facet name="header">
                 <h:outputText value="Products:"/>
@@ -17,12 +18,16 @@
             <p:panel header="#{item.name}" style="text-align:center">
                 <h:panelGrid columns="1" style="width:100%">
                     <p:graphicImage url="#{item.image.url}" width="300px" height="160px"/>
-                    <h:outputText value="#{item.price} EUR" />
-                    <h:outputText value="#{item.description}" />
-                    <p:rating value="#{item.rating.intValue()}" readonly="true" stars="10" style="width: 300px; margin: 0 auto;" />
-                    <p:button value="Buy" icon="fa-cart-plus">
-                        <f:param name="productId" value="#{item.id}" />
-                    </p:button>
+                    <h:outputText value="#{item.price}">
+                        <f:convertNumber type="currency" currencySymbol="€"/>
+                    </h:outputText>
+                    <h:outputText value="#{item.description}"/>
+                    <p:rating value="#{item.rating.intValue()}" readonly="true" stars="10"
+                              style="width: 300px; margin: 0 auto;"/>
+                    <p:commandButton value="Buy" icon="fa-cart" partialSubmit="true" process="@parent"
+                                     update=":myForm:topMenuShoppingCart"
+                                     actionListener="#{homePageBean.buyAction(item)}">
+                    </p:commandButton>
                 </h:panelGrid>
             </p:panel>
         </p:dataGrid>

@@ -1,8 +1,6 @@
 package org.beat.it.backend.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.beat.it.backend.data.DeliveryOptions;
-import org.beat.it.backend.data.PaymentMethods;
 import org.beat.it.backend.domain.Address;
 import org.beat.it.backend.domain.BillingDetails;
 import org.beat.it.backend.domain.Cart;
@@ -18,6 +16,7 @@ import org.beat.it.backend.repository.SessionStorageRepository;
 import org.beat.it.frontend.rest.authentication.TokenHolder;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
@@ -49,17 +48,17 @@ public class CartService {
     }
 
     private void storeCart(Cart cart) {
-        sessionStorageRepository.storeCart(tokenHolder.getToken(), cart);
+        sessionStorageRepository.storeCart(getRepositoryKey(), cart);
     }
 
     private Cart retrieveCart() {
-        return sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+        return sessionStorageRepository.retrieveCart(getRepositoryKey());
     }
 
     public Cart processOrder(String deliveryType, String paymentMethod, Person person, BillingDetails billingDetails, Address address) {
         log.debug("About to process order for delivery type {}, payment method {}, person {}, billing details {} and address {}.",
                 deliveryType, paymentMethod, person, billingDetails, address);
-        Cart cart = sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+        Cart cart = sessionStorageRepository.retrieveCart(getRepositoryKey());
         if (cart == null || cart.getCartItems().isEmpty()) {
             throw new IllegalStateException("Cannot process order for nothing!");
         }
@@ -75,8 +74,8 @@ public class CartService {
         cart.setAddress(address);
         log.debug("Cart looks like this {} after initialization.", cart);
         //creating new cart, ordered cart added to history
-        sessionStorageRepository.storeCart(tokenHolder.getToken(), new Cart());
-        sessionStorageRepository.storeHistoryCart(tokenHolder.getToken(), cart);
+        sessionStorageRepository.storeCart(getRepositoryKey(), new Cart());
+        sessionStorageRepository.storeHistoryCart(getRepositoryKey(), cart);
         return cart;
     }
 
@@ -86,7 +85,7 @@ public class CartService {
 
     public void removeItemFromCart(String productId) {
         log.debug("About to remove item with productId {} from cart.", productId);
-        Cart cart = sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+        Cart cart = sessionStorageRepository.retrieveCart(getRepositoryKey());
         if (cart != null) {
             Optional<CartItem> existing = cart.getCartItems().stream().filter(item -> item.getProductId().equals(productId)).findFirst();
             if (existing.isPresent()) {
@@ -99,7 +98,7 @@ public class CartService {
 
     public void addItemToCart(String productId, Integer quantity) {
         log.debug("About to add item with productId {} with quantity {} to cart.", productId, quantity);
-        Cart cart = sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+        Cart cart = sessionStorageRepository.retrieveCart(getRepositoryKey());
         if (cart == null) {
             cart = new Cart();
             storeCart(cart);
@@ -113,5 +112,19 @@ public class CartService {
             cart.getCartItems().add(new CartItem(productId, quantity, productRepository.listProductsAsMap().get(productId).getPrice()));
         }
         log.debug("Cart now looks like this {}.", cart);
+    }
+
+    private String getRepositoryKey(){
+        return tokenHolder.getToken() != null ? tokenHolder.getToken() : getJsfKey();
+    }
+
+    private String getJsfKey() {
+        String sessionId = FacesContext.getCurrentInstance().getExternalContext().getSessionId(false);
+        log.info("Jsf,  session id is {}", sessionId);
+        return sessionId;
+    }
+
+    public void initCart(){
+        storeCart(new Cart());
     }
 }
