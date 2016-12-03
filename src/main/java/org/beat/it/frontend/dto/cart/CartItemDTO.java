@@ -13,10 +13,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CartItemDTO implements Serializable {
 
+    private String productId;
     private String name;
     private ImageDTO image;
     private Integer quantity;
-    private Double pricePerItem;
+    private Double price;
     private String currency = "EUR";
     private Double totalPrice;
 }

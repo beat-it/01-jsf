@@ -39,7 +39,7 @@ public class AuthenticationTokenRequestFilter implements ContainerRequestFilter 
             token = tokenGenerator.generateToken();
         } else {
             // Extract the token from the HTTP Authorization header
-            token = authorizationHeader.substring("Bearer".length()).trim();
+            token = authorizationHeader.substring("Bearer ".length()).trim();
         }
         tokenHolder.setToken(token);
 
