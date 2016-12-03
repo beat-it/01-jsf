@@ -26,6 +26,9 @@ public class CartTransformer {
     AddressTransformer addressTransformer;
 
     public CartDTO transform(Cart cart, Map<String, Product> products) {
+        if (cart == null) {
+            cart = new Cart();
+        }
         return new CartDTO(cartItemTransformer.transform(cart.getCartItems(), products),
                 paymentTransformer.transform(cart.getPayment()),
                 personTransformer.transform(cart.getPerson()),
