@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Api(value = "/catalog", description = "List or search in product catalog", tags = "catalog")
+@Api()
 public class CatalogResource {
 
     @Inject

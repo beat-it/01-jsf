@@ -12,7 +12,8 @@ import javax.enterprise.context.ApplicationScoped;
 public class PersonTransformer {
 
     public Person transform(PersonDTO person) {
-        return new Person(person.getForename(), person.getSurname(), person.getEmail(), person.getPhone());
+        return person == null ? null
+                : new Person(person.getForename(), person.getSurname(), person.getEmail(), person.getPhone());
     }
 
     public PersonDTO transform(Person person) {

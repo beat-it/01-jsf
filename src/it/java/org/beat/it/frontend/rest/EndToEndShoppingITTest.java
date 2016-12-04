@@ -213,7 +213,8 @@ public class EndToEndShoppingITTest {
         assertThat(cartDTO.getPerson()).isEqualTo(personDTO);
         assertThat(cartDTO.getPayment()).isEqualTo(
                 new PaymentDTO(3 * volvo.getPrice() + mitsubishi.getPrice() + paymentMethodDTOs.get(1).getPrice() + deliveryOptionDTOs.get(0).getPrice(),
-                        3 * volvo.getPrice() + mitsubishi.getPrice(), deliveryOptionDTOs.get(0).getPrice(), "EUR", kurier, dobierka));
+                        3 * volvo.getPrice() + mitsubishi.getPrice(), "EUR", deliveryOptionDTOs.get(0).getPrice(), 
+                        kurier, paymentMethodDTOs.get(1).getPrice(), dobierka));
         assertThat(cartDTO.getCartItems().size()).isEqualTo(2);
         CartItemDTO volvoItem = cartDTO.getCartItems().get(0);
         CartItemDTO mitsubishiItem = cartDTO.getCartItems().get(1);
