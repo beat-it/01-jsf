@@ -9,7 +9,7 @@
 <body>
 <ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="content">
-        <p:dataGrid var="item" value="#{homePageBean.products}" columns="3" layout="grid" rows="3" paginator="true"
+        <p:dataGrid var="item" value="#{products}" columns="3" layout="grid" rows="3" paginator="true"
                     id="products" rowsPerPageTemplate="3,6,9"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
             <f:facet name="header">
@@ -24,9 +24,9 @@
                     <h:outputText value="#{item.description}"/>
                     <p:rating value="#{item.rating.intValue()}" readonly="true" stars="10"
                               style="width: 300px; margin: 0 auto;"/>
-                    <p:commandButton value="Buy" icon="fa-cart" partialSubmit="true" process="@parent"
+                    <p:commandButton value="Buy" icon="ui-icon-cart" partialSubmit="true" process="@parent"
                                      update=":myForm:topMenuShoppingCart"
-                                     actionListener="#{homePageBean.buyAction(item)}">
+                                     actionListener="#{homePageView.buyAction(item)}">
                     </p:commandButton>
                 </h:panelGrid>
             </p:panel>

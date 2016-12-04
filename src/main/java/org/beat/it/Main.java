@@ -1,7 +1,5 @@
 package org.beat.it;
 
-import org.beat.it.frontend.jsf.Message;
-import org.beat.it.frontend.rest.JaxRsApplication;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.wildfly.swarm.Swarm;
@@ -26,7 +24,6 @@ public class Main {
                 .fraction(new JSFFraction());
 
         WARArchive deployment = ShrinkWrap.create(WARArchive.class);
-        deployment.addClass(Message.class);
         deployment.addPackages(true, "org.beat.it");
 
         deployment.addAsWebResource(
@@ -37,6 +34,8 @@ public class Main {
                 new ClassLoaderAsset("order.xhtml", Main.class.getClassLoader()), "order.xhtml");
         deployment.addAsWebInfResource(
                 new ClassLoaderAsset("WEB-INF/web.xml", Main.class.getClassLoader()), "web.xml");
+        deployment.addAsWebResource(
+                new ClassLoaderAsset("css/eshop.css", Main.class.getClassLoader()), "eshop.css");
         deployment.addAsWebResource("images/honda.jpg","honda.jpg");
         deployment.addAsWebResource("images/mitsubishi.jpg","mitsubishi.jpg");
         deployment.addAsWebResource("images/bmw.jpg","bmw.jpg");

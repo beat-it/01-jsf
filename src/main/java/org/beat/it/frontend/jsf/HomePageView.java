@@ -17,16 +17,11 @@ import java.util.List;
 @Getter
 @Setter
 @Slf4j
-public class HomePageBean {
+public class HomePageView {
 
-    @Inject
-    private CatalogService catalogService;
+
     @Inject
     private CartService cartService;
-
-    public List<Product> getProducts() {
-        return catalogService.listProducts();
-    }
 
     public void buyAction(Product product) {
         cartService.addItemToCart(product.getId(), 1);

@@ -8,6 +8,7 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>WildFly Swarm Facelet</title>
+    <h:outputStylesheet library="css" name="eshop.css"/>
 </h:head>
 <h:body>
     <h:form id="myForm">
@@ -18,14 +19,14 @@
                     <p:panel id="topMenuShoppingCart">
                         <p:graphicImage url="shopping.png" width="20px"/>
                         <p:spacer width="3px"/>
-                        Items: #{cartBean.items}
+                        Items: #{cart.itemsCount}
                         <p:spacer width="3px"/>
                         Price:
-                        <h:outputText value="#{cartBean.totalPrice}">
+                        <h:outputText value="#{cart.totalPrice}">
                             <f:convertNumber type="currency" currencySymbol="€"/>
                         </h:outputText>
                         <p:spacer width="4px"/>
-                        <p:link value="Buy" outcome="order" rendered="#{cartBean.items > 0}"/>
+                        <p:link value="Buy" outcome="order" rendered="#{cart.itemsCount > 0}"/>
                     </p:panel>
                 </div>
             </div>

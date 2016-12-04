@@ -27,10 +27,14 @@ public class Cart implements Serializable {
     private Address address;
 
     public Double getItemsPrice() {
-        return cartItems.stream().mapToDouble(CartItem::totalPrice).sum();
+        return cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
     }
 
     public Double getTotalPrice() {
         return payment != null ? payment.getTotalPrice() : getItemsPrice();
+    }
+
+    public Integer getItemsCount() {
+        return cartItems.stream().mapToInt(CartItem::getQuantity).sum();
     }
 }

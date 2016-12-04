@@ -30,6 +30,6 @@ public class CartItemTransformer {
     }
 
     public CartItemDTO transform(CartItem cartItem, Product product) {
-        return new CartItemDTO(product.getId(), product.getName(), imageTransformer.transform(product.getImage()), cartItem.getQuantity(), product.getPrice(), "EUR", cartItem.totalPrice());
+        return new CartItemDTO(product.getId(), product.getName(), imageTransformer.transform(product.getImage()), cartItem.getQuantity(), product.getPrice(), "EUR", cartItem.getTotalPrice());
     }
 }
