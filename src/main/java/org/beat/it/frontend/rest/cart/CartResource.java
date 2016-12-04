@@ -1,5 +1,7 @@
 package org.beat.it.frontend.rest.cart;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.beat.it.backend.domain.Cart;
 import org.beat.it.backend.service.CartService;
 import org.beat.it.backend.service.CatalogService;
@@ -39,6 +41,7 @@ import java.util.List;
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Api
 public class CartResource {
 
     @Inject
@@ -62,7 +65,8 @@ public class CartResource {
 
     @AuthenticationToken
     @PUT
-    public CartDTO cart(CartOrderDTO cartOrderDTO) {
+    @ApiOperation("Set parameters of an to-be-ordered cart.")
+    public CartDTO modifyCart(CartOrderDTO cartOrderDTO) {
         Cart cart = cartService.processOrder(cartOrderDTO.getDeliveryType(),
                 cartOrderDTO.getPaymentMethod(),
                 personTransformer.transform(cartOrderDTO.getPerson()),
@@ -73,13 +77,15 @@ public class CartResource {
 
     @AuthenticationToken
     @GET
-    public CartDTO cart() {
+    @ApiOperation("Reads the contents of cart")
+    public CartDTO loadCart() {
         return cartTransformer.transform(cartService.getCart(), catalogService.listProductsPerProductId());
     }
 
     @AuthenticationToken
     @GET
     @Path("/info")
+    @ApiOperation("Gets cart summary info")
     public CartInfoDTO info() {
         return cartInfoTransformer.transform(cartService.getCart());
     }
@@ -87,21 +93,24 @@ public class CartResource {
     @AuthenticationToken
     @GET
     @Path("/delivery")
-    public List<DeliveryOptionDTO> delivery() {
+    @ApiOperation(value="Lists delivery options", responseContainer = "List", response = DeliveryOptionDTO.class)
+    public List<DeliveryOptionDTO> deliveryOptions() {
         return deliveryOptionTransformer.transform(cartService.listDeliveryOptions());
     }
 
     @AuthenticationToken
     @GET
     @Path("/payment")
-    public List<PaymentMethodDTO> payment() {
+    @ApiOperation(value="Lists payment options", responseContainer = "List", response = PaymentMethodDTO.class)
+    public List<PaymentMethodDTO> paymentOptions() {
         return paymentMethodTransformer.transform(cartService.listPaymentMethods());
     }
 
     @AuthenticationToken
     @DELETE
     @Path("/items/{itemId}")
-    public CartInfoDTO items(@PathParam("itemId") String itemId) {
+    @ApiOperation("Delete an item from a cart")
+    public CartInfoDTO deleteItem(@PathParam("itemId") String itemId) {
         cartService.removeItemFromCart(itemId);
         return cartInfoTransformer.transform(cartService.getCart());
     }
@@ -109,7 +118,8 @@ public class CartResource {
     @AuthenticationToken
     @POST
     @Path("/items")
-    public CartInfoDTO items(AddItemDTO addItemDTO) {
+    @ApiOperation("Add an item of a cart. Change quantity of an existing item.")
+    public CartInfoDTO addItem(AddItemDTO addItemDTO) {
         cartService.addItemToCart(addItemDTO.getProductId(), addItemDTO.getQuantity());
         return cartInfoTransformer.transform(cartService.getCart());
     }
