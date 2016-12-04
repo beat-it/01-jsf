@@ -18,7 +18,8 @@ public class BillingDetailsTransformer {
     CompanyTransformer companyTransformer;
 
     public BillingDetails transform(BillingDetailsDTO billingAddress) {
-        return new BillingDetails(addressTransformer.transform(billingAddress.getBillingAddress())
+        return billingAddress == null ? null
+                : new BillingDetails(addressTransformer.transform(billingAddress.getBillingAddress())
                 , companyTransformer.transform(billingAddress.getCompany()));
     }
 

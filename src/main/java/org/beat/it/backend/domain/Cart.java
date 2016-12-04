@@ -33,4 +33,14 @@ public class Cart implements Serializable {
     public Double getTotalPrice() {
         return payment != null ? payment.getTotalPrice() : getItemsPrice();
     }
+    
+    public Payment getPayment() {
+        if (this.payment == null) {
+            Payment computed = new Payment(getItemsPrice(), getItemsPrice(), 0.0d, 
+                    null, 0d, null);
+            return computed;
+        } else {
+            return this.payment;
+        }
+    }
 }

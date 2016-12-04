@@ -33,6 +33,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import org.beat.it.frontend.dto.cart.PaymentDTO;
 
 /**
  * @author Martin Petruna
@@ -67,11 +68,20 @@ public class CartResource {
     @PUT
     @ApiOperation("Set parameters of an to-be-ordered cart.")
     public CartDTO modifyCart(CartOrderDTO cartOrderDTO) {
-        Cart cart = cartService.processOrder(cartOrderDTO.getDeliveryType(),
+        Cart cart = cartService.updateCart(cartOrderDTO.getDeliveryType(),
                 cartOrderDTO.getPaymentMethod(),
                 personTransformer.transform(cartOrderDTO.getPerson()),
                 billingDetailsTransformer.transform(cartOrderDTO.getBillingAddress()),
                 addressTransformer.transform(cartOrderDTO.getAddress()));
+        return cartTransformer.transform(cart, catalogService.listProductsPerProductId());
+    }
+    
+    @AuthenticationToken
+    @POST
+    @Path("order")
+    @ApiOperation("Confirm order")
+    public CartDTO confirmOrder() {
+        Cart cart = cartService.processOrder();
         return cartTransformer.transform(cart, catalogService.listProductsPerProductId());
     }
 
@@ -97,7 +107,7 @@ public class CartResource {
     public List<DeliveryOptionDTO> deliveryOptions() {
         return deliveryOptionTransformer.transform(cartService.listDeliveryOptions());
     }
-
+    
     @AuthenticationToken
     @GET
     @Path("/payment")

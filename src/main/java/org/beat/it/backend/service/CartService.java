@@ -1,8 +1,6 @@
 package org.beat.it.backend.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.beat.it.backend.data.DeliveryOptions;
-import org.beat.it.backend.data.PaymentMethods;
 import org.beat.it.backend.domain.Address;
 import org.beat.it.backend.domain.BillingDetails;
 import org.beat.it.backend.domain.Cart;
@@ -18,6 +16,7 @@ import org.beat.it.backend.repository.SessionStorageRepository;
 import org.beat.it.frontend.rest.authentication.TokenHolder;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
@@ -56,27 +55,51 @@ public class CartService {
         return sessionStorageRepository.retrieveCart(getRepositoryKey());
     }
 
-    public Cart processOrder(String deliveryType, String paymentMethod, Person person, BillingDetails billingDetails, Address address) {
-        log.debug("About to process order for delivery type {}, payment method {}, person {}, billing details {} and address {}.",
-                deliveryType, paymentMethod, person, billingDetails, address);
-        Cart cart = sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+    public Cart updateCart(String deliveryType, String paymentMethod, Person person, BillingDetails billingDetails, Address address) {
+        Cart cart = sessionStorageRepository.retrieveCart(getRepositoryKey());
+        log.debug("Processing order for cart {}.", cart);
+        Payment originalPayment = cart.getPayment();
+        // well, definetely nicer approaches exist for
+        Double priceForDelivery = deliveryType != null
+                ? deliveryOptionRepository.deliveryOption(deliveryType).getPrice() 
+                : originalPayment != null
+                ? originalPayment.getDeliveryPrice()
+                : 0;
+        log.info("Price for delivery {} is {}.", deliveryType, priceForDelivery);
+        Double priceForPayment = paymentMethod != null 
+                ? paymentMethodRepository.paymentMethod(paymentMethod).getPrice() 
+                : originalPayment != null
+                ? originalPayment.getTransactionPrice()
+                : 0;
+        log.info("Price for payment {} is {}.", paymentMethod, priceForPayment);
+        Payment payment = new Payment(cart.getItemsPrice() + priceForDelivery + priceForPayment, 
+                cart.getItemsPrice(), 
+                priceForDelivery, deliveryType, 
+                priceForPayment, paymentMethod);
+        cart.setPayment(payment);
+        if (person != null) {
+            cart.setPerson(person);
+        }
+        if (billingDetails != null) {
+            cart.setBillingDetails(billingDetails);
+        }
+        if (address != null) {
+            cart.setAddress(address);
+        }
+        log.debug("Cart looks like this {} after initialization.", cart);
+        //creating new cart, ordered cart added to history
+        return cart;
+    }
+    
+    public Cart processOrder() {
+        Cart cart = sessionStorageRepository.retrieveCart(getRepositoryKey());
         if (cart == null || cart.getCartItems().isEmpty()) {
             throw new IllegalStateException("Cannot process order for nothing!");
         }
-        log.debug("Processing order for cart {}.", cart);
-        Double priceForDelivery = deliveryOptionRepository.deliveryOption(deliveryType).getPrice();
-        log.debug("Price for delivery {} is {}.", deliveryType, priceForDelivery);
-        Double priceForPayment = paymentMethodRepository.paymentMethod(paymentMethod).getPrice();
-        log.debug("Price for payment {} is {}.", paymentMethod, priceForPayment);
-        Payment payment = new Payment(cart.getItemsPrice() + priceForDelivery + priceForPayment, cart.getItemsPrice(), priceForDelivery, deliveryType, paymentMethod);
-        cart.setPayment(payment);
-        cart.setPerson(person);
-        cart.setBillingDetails(billingDetails);
-        cart.setAddress(address);
-        log.debug("Cart looks like this {} after initialization.", cart);
-        //creating new cart, ordered cart added to history
-        sessionStorageRepository.storeCart(tokenHolder.getToken(), new Cart());
-        sessionStorageRepository.storeHistoryCart(tokenHolder.getToken(), cart);
+        log.debug("Processing order for cart {}.", cart);  
+        // todo: verify completeness of a cart
+        sessionStorageRepository.storeCart(getRepositoryKey(), new Cart());
+        sessionStorageRepository.storeHistoryCart(getRepositoryKey(), cart);
         return cart;
     }
 

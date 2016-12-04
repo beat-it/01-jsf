@@ -12,7 +12,8 @@ import javax.enterprise.context.ApplicationScoped;
 public class AddressTransformer {
 
     public Address transform(AddressDTO addressDTO) {
-        return new Address(addressDTO.getStreet(), addressDTO.getCity(), addressDTO.getZip(), addressDTO.getCountry());
+        return addressDTO == null ? null
+                : new Address(addressDTO.getStreet(), addressDTO.getCity(), addressDTO.getZip(), addressDTO.getCountry());
     }
 
     public AddressDTO transform(Address address) {

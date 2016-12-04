@@ -16,5 +16,6 @@ public class Payment {
     private Double itemsPrice;
     private Double deliveryPrice;
     private String deliveryType;
+    private Double transactionPrice;
     private String paymentMethod;
 }
