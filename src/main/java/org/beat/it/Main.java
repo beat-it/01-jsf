@@ -33,6 +33,8 @@ public class Main {
                 new ClassLoaderAsset("index.html", Main.class.getClassLoader()), "index.html");
         deployment.addAsWebResource(
                 new ClassLoaderAsset("homepage.xhtml", Main.class.getClassLoader()), "homepage.xhtml");
+        deployment.addAsWebResource(
+                new ClassLoaderAsset("order.xhtml", Main.class.getClassLoader()), "order.xhtml");
         deployment.addAsWebInfResource(
                 new ClassLoaderAsset("WEB-INF/web.xml", Main.class.getClassLoader()), "web.xml");
         deployment.addAsWebResource("images/honda.jpg","honda.jpg");

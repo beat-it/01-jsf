@@ -49,11 +49,11 @@ public class CartService {
     }
 
     private void storeCart(Cart cart) {
-        sessionStorageRepository.storeCart(tokenHolder.getToken(), cart);
+        sessionStorageRepository.storeCart(getRepositoryKey(), cart);
     }
 
     private Cart retrieveCart() {
-        return sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+        return sessionStorageRepository.retrieveCart(getRepositoryKey());
     }
 
     public Cart processOrder(String deliveryType, String paymentMethod, Person person, BillingDetails billingDetails, Address address) {
@@ -86,7 +86,7 @@ public class CartService {
 
     public void removeItemFromCart(String productId) {
         log.debug("About to remove item with productId {} from cart.", productId);
-        Cart cart = sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+        Cart cart = sessionStorageRepository.retrieveCart(getRepositoryKey());
         if (cart != null) {
             Optional<CartItem> existing = cart.getCartItems().stream().filter(item -> item.getProductId().equals(productId)).findFirst();
             if (existing.isPresent()) {
@@ -99,7 +99,7 @@ public class CartService {
 
     public void addItemToCart(String productId, Integer quantity) {
         log.debug("About to add item with productId {} with quantity {} to cart.", productId, quantity);
-        Cart cart = sessionStorageRepository.retrieveCart(tokenHolder.getToken());
+        Cart cart = sessionStorageRepository.retrieveCart(getRepositoryKey());
         if (cart == null) {
             cart = new Cart();
             storeCart(cart);
@@ -113,5 +113,19 @@ public class CartService {
             cart.getCartItems().add(new CartItem(productId, quantity, productRepository.listProductsAsMap().get(productId).getPrice()));
         }
         log.debug("Cart now looks like this {}.", cart);
+    }
+
+    private String getRepositoryKey(){
+        return tokenHolder.getToken() != null ? tokenHolder.getToken() : getJsfKey();
+    }
+
+    private String getJsfKey() {
+        String sessionId = FacesContext.getCurrentInstance().getExternalContext().getSessionId(false);
+        log.info("Jsf,  session id is {}", sessionId);
+        return sessionId;
+    }
+
+    public void initCart(){
+        storeCart(new Cart());
     }
 }
