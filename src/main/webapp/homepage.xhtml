@@ -7,9 +7,21 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <body>
-<ui:composition template="/WEB-INF/template.xhtml">
+<ui:composition template="WEB-INF/template.xhtml">
     <ui:define name="content">
-        <p:dataGrid var="item" value="#{products}" columns="3" layout="grid" rows="3" paginator="true"
+        <p:autoComplete id="search" multiple="true" value="#{homePageView.selectedProducts}"
+                        completeMethod="#{homePageView.completeProduct}"
+                        var="product" itemLabel="#{product.name}" itemValue="#{product}"
+                        converter="productSearchConverter" forceSelection="true" >
+            <p:column>
+                <h:outputText value="#{product.name}"/>
+            </p:column>
+            <p:column>
+                <p:graphicImage url="#{product.image.url}" width="100px" height="55px"/>
+            </p:column>
+            <p:ajax event="itemSelect" listener="#{homePageView.onSearch}" process=":myForm:search :myForm:products"/>
+        </p:autoComplete>
+        <p:dataGrid var="item" value="#{homePageView.productsForHomepage}" columns="3" layout="grid" rows="3" paginator="true"
                     id="products" rowsPerPageTemplate="3,6,9"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
             <f:facet name="header">

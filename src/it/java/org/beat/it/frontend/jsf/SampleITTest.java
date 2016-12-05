@@ -36,7 +36,6 @@ public class SampleITTest {
     @Deployment
     public static Archive deployment() throws Exception {
         WARArchive deployment = ShrinkWrap.create(WARArchive.class);
-        deployment.addClass(Message.class);
         deployment.addPackages(true, "org.beat.it");
 
         /**

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>WildFly Swarm Facelet</title>
+    <h:outputStylesheet library="default" name="eshop.css"/>
+</h:head>
+<h:body>
+    <div class="ui-g">
+        <div class="ui-g-1"/>
+        <div class="ui-g-10">
+            <h:form id="myForm">
+                <div id="top">
+                    <div class="ui-g">
+                        <div class="ui-g-9"/>
+                        <div class="ui-g-3">
+                            <p:panel id="topMenuShoppingCart" style="height: 50px">
+                                <div class="ui-g-1"/>
+                                <div class="ui-g-1">
+                                    <p:graphicImage url="images/shopping.png" width="20px"/>
+                                </div>
+                                <div class="ui-g-3">
+                                    Items: #{cart.itemsCount}
+                                </div>
+                                <div class="ui-g-6">
+                                    Price:
+                                    <h:outputText value="#{cart.totalPrice}">
+                                        <f:convertNumber type="currency" currencySymbol="€"/>
+                                    </h:outputText>
+                                </div>
+                                <div class="ui-g-1">
+                                    <p:link value="Buy" outcome="order" rendered="#{cart.itemsCount > 0}"/>
+                                </div>
+                                <p:sticky target="topMenuShoppingCart"/>
+                            </p:panel>
+                        </div>
+                    </div>
+                </div>
+                <div id="content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </h:form>
+        </div>
+        <div class="ui-g-1"/>
+    </div>
+</h:body>
+</html>

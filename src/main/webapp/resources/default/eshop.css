@@ -1,0 +1,20 @@
+/*no vertical lines in table */
+.ui-datatable .ui-datatable-data td{
+    border: none;
+}
+/*wizard component top menu*/
+
+.ui-wizard-step-titles.ui-helper-reset.ui-helper-clearfix {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 60px;
+    text-align: center;
+}
+.ui-wizard-step-title.ui-state-default.ui-corner-all {
+    width: 23%;
+    text-align: center;
+}
+.ui-wizard-step-title.ui-state-default.ui-corner-all.ui-state-highlight {
+    width: 23%;
+    text-align: center;
+}

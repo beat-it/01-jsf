@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<body>
+<ui:composition template="WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <h:outputScript>
+            function companyRadioChange(value) {
+                if (value == 'false') {
+                    PF('companyWidget').show();
+                } else {
+                    PF('companyWidget').close();
+                }
+            }
+        </h:outputScript>
+        <p:wizard flowListener="#{orderView.flowListener}">
+            <p:tab title="1.Ordered Products">
+                <p:messages/>
+                <p:dataTable id="itemsInCart" var="item" value="#{cart.cartItems}">
+                    <p:column headerText="Product" style="text-align: center">
+                        <p:graphicImage url="#{productsMap[item.productId].image.url}" width="150px" height="80px"/>
+                    </p:column>
+                    <p:column headerText="Name" style="text-align: center">
+                        #{productsMap[item.productId].name}
+                    </p:column>
+                    <p:column headerText="Action" style="text-align: center">
+                        <p:commandButton value="Remove" icon="ui-icon-minus" partialSubmit="true"
+                                         process=":myForm:itemsInCart"
+                                         update=":myForm:topMenuShoppingCart :myForm:itemsInCart"
+                                         actionListener="#{orderView.removeItemAction(item)}">
+                        </p:commandButton>
+                    </p:column>
+                    <p:column headerText="Price per Item" style="text-align: center">
+                        #{productsMap[item.productId].price}
+                    </p:column>
+                    <p:column headerText="Count" style="text-align: center">
+                        #{item.quantity}
+                    </p:column>
+                    <p:column headerText="Total Price" style="text-align: center">
+                        <h:outputText value="#{item.totalPrice}">
+                            <f:convertNumber type="currency" currencySymbol="€"/>
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+            </p:tab>
+            <p:tab title="2.Contact Information">
+                <p:messages/>
+
+                <p:panel style="height: 800px">
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+                        <h:outputLabel value="Firstname" for="firstname" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="firstname" value="#{orderView.person.forename}" class="ui-g-3"/>
+                        <h:outputLabel value="Surname" for="surname" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="surname" value="#{orderView.person.surname}" class="ui-g-3"/>
+
+                        <div class="ui-g-1"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+                        <h:outputLabel value="Phone Number" for="phonenumber" class="ui-g-2"
+                                       style="text-align: right"/>
+                        <h:inputText id="phonenumber" value="#{orderView.person.phone}" class="ui-g-3"/>
+                        <h:outputLabel value="Email" for="email" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="email" value="#{orderView.person.email}" class="ui-g-3"/>
+
+                        <div class="ui-g-1"/>
+                    </div>
+                    <p:spacer height="8px"/>
+                    <p:separator/>
+                    <p:spacer height="8px"/>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+                        <h:outputLabel value="Billing Address" for="companyRadio" class="ui-g-2"
+                                       style="text-align: right"/>
+                        <p:selectOneRadio id="companyRadio" value="#{orderView.asCompany}"
+                                          class="ui-g-4" onchange="companyRadioChange(this.value)">
+                            <f:selectItem itemLabel="As company" itemValue="false"/>
+                            <f:selectItem itemLabel="As person" itemValue="true"/>
+                        </p:selectOneRadio>
+
+                        <div class="ui-g-5"/>
+                    </div>
+                    <p:spacer height="8px"/>
+                    <p:separator/>
+                    <p:spacer height="8px"/>
+
+                    <p:panel id="companyWidget" widgetVar="companyWidget" style="height: 115px">
+                        <div class="ui-g-12">
+                            <div class="ui-g-1"/>
+                            <h:outputLabel value="Company Name" for="companyname" class="ui-g-2"
+                                           style="text-align: right"/>
+                            <h:inputText id="companyname" value="#{orderView.company.name}" class="ui-g-3"/>
+                            <h:outputLabel value="DIC" for="dic" class="ui-g-2" style="text-align: right"/>
+                            <h:inputText id="dic" value="#{orderView.company.dic}" class="ui-g-3"/>
+
+                            <div class="ui-g-1"/>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-1"/>
+                            <h:outputLabel value="ICO" for="ico" class="ui-g-2" style="text-align: right"/>
+                            <h:inputText id="ico" value="#{orderView.company.ico}" class="ui-g-3"/>
+                            <h:outputLabel value="icdph" for="icdph" class="ui-g-2" style="text-align: right"/>
+                            <h:inputText id="icdph" value="#{orderView.company.icDph}" class="ui-g-3"/>
+
+                            <div class="ui-g-1"/>
+                        </div>
+                    </p:panel>
+                    <p:spacer height="20px"/>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+                        <h:outputLabel value="Street and Nr." for="street" class="ui-g-2"
+                                       style="text-align: right"/>
+                        <h:inputText id="street" value="#{orderView.address.street}" class="ui-g-3"/>
+                        <h:outputLabel value="ZIP" for="zip" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="zip" value="#{orderView.address.zip}" class="ui-g-3"/>
+
+                        <div class="ui-g-1"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+                        <h:outputLabel value="City" for="city" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="city" value="#{orderView.address.city}" class="ui-g-3"/>
+                        <h:outputLabel value="Country" for="country" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="country" value="#{orderView.address.country}" class="ui-g-3"/>
+
+                        <div class="ui-g-1"/>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+                        <h:outputLabel value="Delivery Address" for="deliveryaddresscheckbox" class="ui-g-2"
+                                       style="text-align: right"/>
+                        <p:selectBooleanCheckbox id="deliveryaddresscheckbox"
+                                                 value="#{orderView.deliveryAddressDifferent}"
+                                                 class="ui-g-3"/>
+
+                        <div class="ui-g-6"/>
+                    </div>
+
+                    <o:validateMultiple id="validateAddressesDifferent" validator="#{differentDeliveryAddressValidator}"
+                                        components="deliveryaddresscheckbox street zip city country deliverystreet deliveryzip deliverycity deliverycountry"
+                                        message="Different delivery address shall not be same as your address!"/>
+
+                    <o:validateMultiple id="validateDeliveryAddressBlankIfNotChecked" validator="#{shouldProvideAddressOnlyIfCheckedValidator}"
+                                        components="deliveryaddresscheckbox deliverystreet deliveryzip deliverycity deliverycountry"
+                                        message="Do not fill in delivery address if you dont want to use it!"/>
+
+                    <h:panelGroup>
+                        <h:message for="validateAddressesDifferent"/>
+                        <h:message for="validateDeliveryAddressBlankIfNotChecked"/>
+                        <h:outputText value="OK!"
+                                      rendered="#{facesContext.postback and not facesContext.validationFailed}"/>
+                    </h:panelGroup>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+                        <h:outputLabel value="Street and Nr." for="deliverystreet" class="ui-g-2"
+                                       style="text-align: right"/>
+                        <h:inputText id="deliverystreet" value="#{orderView.deliveryAddress.street}"
+                                     class="ui-g-3"/>
+                        <h:outputLabel value="ZIP" for="deliveryzip" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="deliveryzip" value="#{orderView.deliveryAddress.zip}" class="ui-g-3"/>
+
+                        <div class="ui-g-1"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"/>
+
+                        <h:outputLabel value="City" for="deliverycity" class="ui-g-2" style="text-align: right"/>
+                        <h:inputText id="deliverycity" value="#{orderView.deliveryAddress.city}" class="ui-g-3"/>
+                        <h:outputLabel value="Country" for="deliverycountry" class="ui-g-2"
+                                       style="text-align: right"/>
+                        <h:inputText id="deliverycountry" value="#{orderView.deliveryAddress.country}"
+                                     class="ui-g-3"/>
+
+                        <div class="ui-g-1"/>
+                    </div>
+
+                </p:panel>
+            </p:tab>
+            <p:tab title="3.Order Summary">
+                <p:panel>
+                    <p:messages/>
+                    Order Summary</p:panel>
+            </p:tab>
+            <p:tab title="4.Finalize Order">
+                <p:panel>
+                    <p:messages/>
+                    <p:messages showDetail="true"/>
+                    <p:captcha label="Captcha"/>
+                    <p:commandButton value="Check" actionListener="#{orderView.captcha}" ajax="false"
+                                     icon="ui-icon-check"/>
+                    Finalize Order</p:panel>
+            </p:tab>
+        </p:wizard>
+    </ui:define>
+</ui:composition>
+</body>
+</html>
