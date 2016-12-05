@@ -37,4 +37,14 @@ public class Cart implements Serializable {
     public Integer getItemsCount() {
         return cartItems.stream().mapToInt(CartItem::getQuantity).sum();
     }
+
+    public Payment getPayment() {
+        if (this.payment == null) {
+            Payment computed = new Payment(getItemsPrice(), getItemsPrice(), 0.0d,
+                    null, 0d, null);
+            return computed;
+        } else {
+            return this.payment;
+        }
+    }
 }

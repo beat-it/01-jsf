@@ -13,7 +13,9 @@ public class PaymentTransformer {
 
     public PaymentDTO transform(Payment payment) {
         if (payment != null) {
-            return new PaymentDTO(payment.getTotalPrice(), payment.getItemsPrice(), payment.getDeliveryPrice(), "EUR", payment.getDeliveryType(), payment.getPaymentMethod());
+            return new PaymentDTO(payment.getTotalPrice(), payment.getItemsPrice(),  "EUR", 
+                    payment.getDeliveryPrice(), payment.getDeliveryType(), 
+                    payment.getTransactionPrice(), payment.getPaymentMethod());
         } else return null;
     }
 }

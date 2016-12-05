@@ -14,9 +14,10 @@ public class PaymentDTO implements Serializable {
 
     private Double totalPrice;
     private Double itemsPrice;
-    private Double deliveryPrice;
     private String currency = "EUR";
+    private Double deliveryPrice;
     private String deliveryType;
+    private Double transactionPrice;
     private String paymentMethod;
 
 }
