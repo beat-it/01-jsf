@@ -18,6 +18,6 @@ public class DeliveryOptionTransformer {
     }
 
     public DeliveryOptionDTO transform(DeliveryOption deliveryOption) {
-        return new DeliveryOptionDTO(deliveryOption.getId(), deliveryOption.getPrice(), "EUR");
+        return new DeliveryOptionDTO(deliveryOption.getId(), deliveryOption.getPrice(), "EUR", deliveryOption.getName());
     }
 }

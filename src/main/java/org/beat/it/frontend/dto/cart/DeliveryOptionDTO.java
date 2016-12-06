@@ -15,4 +15,6 @@ public class DeliveryOptionDTO implements Serializable {
     private String id;
     private Double price;
     private String currency = "EUR";
+    private String name;
 }
+
