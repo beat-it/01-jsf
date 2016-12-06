@@ -46,6 +46,16 @@
                         </h:outputText>
                     </p:column>
                 </p:dataTable>
+                <p:spacer/>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        TODO
+                    </div>
+                    <div class="ui-g-6">
+                        TODO
+                    </div>
+                </div>
             </p:tab>
             <p:tab title="2.Contact Information">
                 <p:messages/>
@@ -64,9 +74,14 @@
                         <div class="ui-g-1"/>
                         <h:outputLabel value="Phone Number" for="phonenumber" class="ui-g-2"
                                        style="text-align: right"/>
-                        <h:inputText id="phonenumber" value="#{orderView.person.phone}" class="ui-g-3"/>
+                        <p:inputMask id="phonenumber" value="#{orderView.person.phone}" mask="+999 999 999 999"
+                                     class="ui-g-3"/>
                         <h:outputLabel value="Email" for="email" class="ui-g-2" style="text-align: right"/>
-                        <h:inputText id="email" value="#{orderView.person.email}" class="ui-g-3"/>
+                        <h:inputText id="email" value="#{orderView.person.email}" class="ui-g-3">
+                            <f:validateRegex
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                        </h:inputText>
+                        <p:watermark value="enter valid email..." for="email"/>
 
                         <div class="ui-g-1"/>
                     </div>
@@ -78,7 +93,7 @@
                         <div class="ui-g-1"/>
                         <h:outputLabel value="Billing Address" for="companyRadio" class="ui-g-2"
                                        style="text-align: right"/>
-                        <p:selectOneRadio id="companyRadio" value="#{orderView.asCompany}"
+                        <p:selectOneRadio id="companyRadio" value="#{orderView.notAsCompany}"
                                           class="ui-g-4" onchange="companyRadioChange(this.value)">
                             <f:selectItem itemLabel="As company" itemValue="false"/>
                             <f:selectItem itemLabel="As person" itemValue="true"/>
@@ -148,7 +163,8 @@
                                         components="deliveryaddresscheckbox street zip city country deliverystreet deliveryzip deliverycity deliverycountry"
                                         message="Different delivery address shall not be same as your address!"/>
 
-                    <o:validateMultiple id="validateDeliveryAddressBlankIfNotChecked" validator="#{shouldProvideAddressOnlyIfCheckedValidator}"
+                    <o:validateMultiple id="validateDeliveryAddressBlankIfNotChecked"
+                                        validator="#{shouldProvideAddressOnlyIfCheckedValidator}"
                                         components="deliveryaddresscheckbox deliverystreet deliveryzip deliverycity deliverycountry"
                                         message="Do not fill in delivery address if you dont want to use it!"/>
 
@@ -186,9 +202,83 @@
                 </p:panel>
             </p:tab>
             <p:tab title="3.Order Summary">
-                <p:panel>
-                    <p:messages/>
-                    Order Summary</p:panel>
+                <p:messages/>
+                <p:dataTable id="itemsInCart2" var="item" value="#{cart.cartItems}">
+                    <p:column headerText="Product" style="text-align: center">
+                        <p:graphicImage url="#{productsMap[item.productId].image.url}" width="150px" height="80px"/>
+                    </p:column>
+                    <p:column headerText="Name" style="text-align: center">
+                        #{productsMap[item.productId].name}
+                    </p:column>
+                    <p:column headerText="Price per Item" style="text-align: center">
+                        #{productsMap[item.productId].price}
+                    </p:column>
+                    <p:column headerText="Count" style="text-align: center">
+                        #{item.quantity}
+                    </p:column>
+                    <p:column headerText="Total Price" style="text-align: center">
+                        <h:outputText value="#{item.totalPrice}">
+                            <f:convertNumber type="currency" currencySymbol="€"/>
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <h:outputText value="Billing Address" style="font: bold 20px" class="ui-g-12"/>
+                        <p:separator class="ui-g-12"/>
+                        <!-- todo create component form this one -->
+                        <h:panelGroup rendered="#{!orderView.notAsCompany}" class="ui-g-12">
+                            <h:outputText value="#{orderView.company.name} #{orderView.company.ico}" class="ui-g-12"/>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{orderView.notAsCompany}" class="ui-g-12">
+                            <h:outputText value="#{orderView.person.forename} #{orderView.person.surname}"
+                                          class="ui-g-12"/>
+                        </h:panelGroup>
+                        <h:outputText value="#{orderView.address.street}" class="ui-g-12"/>
+                        <h:outputText value="#{orderView.address.city} #{orderView.address.zip}" class="ui-g-12"/>
+                        <h:outputText value="#{orderView.address.country}" class="ui-g-12"/>
+                    </div>
+                    <div class="ui-g-6">
+                        <h:outputText value="Delivery Address" style="font: bold 20px" class="ui-g-12"/>
+                        <p:separator class="ui-g-12"/>
+                        <!-- todo create component form this one -->
+                        <h:panelGroup rendered="#{!orderView.notAsCompany}" class="ui-g-12">
+                            <h:outputText value="#{orderView.company.name} #{orderView.company.ico}" class="ui-g-12"/>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{orderView.notAsCompany}" class="ui-g-12">
+                            <h:outputText value="#{orderView.person.forename} #{orderView.person.surname}"
+                                          class="ui-g-12"/>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!orderView.deliveryAddressDifferent}" class="ui-g-12">
+                            <h:outputText value="#{orderView.address.street}" class="ui-g-12"/>
+                            <h:outputText value="#{orderView.address.city} #{orderView.address.zip}" class="ui-g-12"/>
+                            <h:outputText value="#{orderView.address.country}" class="ui-g-12"/>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{orderView.deliveryAddressDifferent}" class="ui-g-12">
+                            <h:outputText value="#{orderView.deliveryAddress.street}" class="ui-g-12"/>
+                            <h:outputText
+                                    value="#{orderView.deliveryAddress.city} #{orderView.deliveryAddress.zip}"
+                                    class="ui-g-12"/>
+                            <h:outputText value="#{orderView.deliveryAddress.country}" class="ui-g-12"/>
+                        </h:panelGroup>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <h:outputText value="Contact Info" style="font: bold 20px" class="ui-g-12"/>
+                        <p:separator class="ui-g-12"/>
+                        <h:outputText value="Email: #{orderView.person.email}" class="ui-g-12"/>
+                        <h:outputText value="Phone: #{orderView.person.phone}" class="ui-g-12"/>
+                    </div>
+                    <div class="ui-g-6">
+                        <h:outputText value="Delivery and Payment Options" style="font: bold 20px" class="ui-g-12"/>
+                        <p:separator class="ui-g-12"/>
+                        <h:outputText value="Delivery: #{orderView.deliveryOption.id}" class="ui-g-12"/>
+                        <h:outputText value="Payment Method: #{orderView.paymentMethod.id}" class="ui-g-12"/>
+                    </div>
+                </div>
             </p:tab>
             <p:tab title="4.Finalize Order">
                 <p:panel>

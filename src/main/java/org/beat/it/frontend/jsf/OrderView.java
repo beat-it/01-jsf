@@ -3,9 +3,13 @@ package org.beat.it.frontend.jsf;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.beat.it.backend.data.DeliveryOptions;
+import org.beat.it.backend.data.PaymentMethods;
 import org.beat.it.backend.domain.Address;
 import org.beat.it.backend.domain.CartItem;
 import org.beat.it.backend.domain.Company;
+import org.beat.it.backend.domain.DeliveryOption;
+import org.beat.it.backend.domain.PaymentMethod;
 import org.beat.it.backend.domain.Person;
 import org.beat.it.backend.service.CartService;
 import org.primefaces.event.FlowEvent;
@@ -34,7 +38,10 @@ public class OrderView implements Serializable {
     private Address deliveryAddress = new Address();
 
     private boolean deliveryAddressDifferent = false;
-    private boolean asCompany = false;
+    private boolean notAsCompany = false;
+
+    private DeliveryOption deliveryOption = DeliveryOptions.all().get(1);
+    private PaymentMethod paymentMethod = PaymentMethods.all().get(0);
 
     public void removeItemAction(CartItem cartItem) {
         cartService.removeItemFromCart(cartItem.getProductId());

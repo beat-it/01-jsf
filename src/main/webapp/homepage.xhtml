@@ -10,7 +10,7 @@
 <ui:composition template="WEB-INF/template.xhtml">
     <ui:define name="content">
         <p:autoComplete id="search" multiple="true" value="#{homePageView.selectedProducts}"
-                        completeMethod="#{homePageView.completeProduct}"
+                        completeMethod="#{homePageView.completeProduct}" queryDelay="1000"
                         var="product" itemLabel="#{product.name}" itemValue="#{product}"
                         converter="productSearchConverter" forceSelection="true" >
             <p:column>
@@ -19,7 +19,8 @@
             <p:column>
                 <p:graphicImage url="#{product.image.url}" width="100px" height="55px"/>
             </p:column>
-            <p:ajax event="itemSelect" listener="#{homePageView.onSearch}" process=":myForm:search :myForm:products"/>
+            <p:ajax event="itemSelect" listener="#{homePageView.onSearch}" process=":myForm:search :myForm:products @this" update="@form"/>
+            <p:ajax event="itemUnselect" listener="#{homePageView.onSearch}" process=":myForm:search :myForm:products @this" update="@form"/>
         </p:autoComplete>
         <p:dataGrid var="item" value="#{homePageView.productsForHomepage}" columns="3" layout="grid" rows="3" paginator="true"
                     id="products" rowsPerPageTemplate="3,6,9"
