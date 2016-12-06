@@ -12,4 +12,5 @@ public class DeliveryOption {
 
     private String id;
     private Double price;
+    private String name;
 }

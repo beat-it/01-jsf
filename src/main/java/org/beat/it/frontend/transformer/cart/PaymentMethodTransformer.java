@@ -18,6 +18,6 @@ public class PaymentMethodTransformer {
     }
 
     public PaymentMethodDTO transform(PaymentMethod paymentMethod) {
-        return new PaymentMethodDTO(paymentMethod.getId(), paymentMethod.getPrice(), "EUR");
+        return new PaymentMethodDTO(paymentMethod.getId(), paymentMethod.getPrice(), "EUR", paymentMethod.getName());
     }
 }
